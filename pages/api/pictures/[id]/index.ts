@@ -30,7 +30,7 @@ async function handler(
 
   const strAge = product?.age + "";
 
-  const intAges = strAge.split(" ").map(age => ({
+  const intAges = strAge.split(" ").map((age) => ({
     age: {
       lte: +age + 2,
       gte: +age - 2,

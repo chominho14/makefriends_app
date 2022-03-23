@@ -129,7 +129,7 @@ const PictureDetail: NextPage = () => {
                 <a>
                   <div>
                     <div className="mb-4 h-56 w-full bg-slate-300" />
-                    <h3 className="-mb-1 text-gray-700">{product.name}</h3>
+                    <h3 className="-mb-1 text-gray-700">{product.title}</h3>
                     <span className="text-xs font-medium text-gray-900">
                       {product.age}세
                     </span>

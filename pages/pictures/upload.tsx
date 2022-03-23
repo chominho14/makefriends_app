@@ -36,9 +36,9 @@ const Upload: NextPage = () => {
   }, [data, router]);
   return (
     <Layout canGoBack title="Upload Picture">
-      <form className="p-4 space-y-4" onSubmit={handleSubmit(onValid)}>
+      <form className="space-y-4 p-4" onSubmit={handleSubmit(onValid)}>
         <div>
-          <label className="w-full cursor-pointer text-gray-600 hover:border-pink-500 hover:text-pink-500 flex items-center justify-center border-2 border-dashed border-gray-300 h-48 rounded-md">
+          <label className="flex h-48 w-full cursor-pointer items-center justify-center rounded-md border-2 border-dashed border-gray-300 text-gray-600 hover:border-pink-500 hover:text-pink-500">
             <svg
               className="h-12 w-12"
               stroke="currentColor"
@@ -59,14 +59,14 @@ const Upload: NextPage = () => {
         <Input
           register={register("name", { required: true })}
           required
-          label="Name"
+          label="Title"
           name="name"
           type="text"
         />
         <Input
           register={register("age", { required: true })}
           required
-          label="age"
+          label="Age"
           name="age"
           type="text"
           kind="age"
