@@ -48,7 +48,7 @@ model Product {
   age         Int
   description String   @db.MediumText
   favs        Fav[]
-
+  mbti        String
 }
 
 model Fav {
