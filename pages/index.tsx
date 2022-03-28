@@ -35,6 +35,7 @@ const Home: NextPage = () => {
               id={product.id}
               key={product.id}
               title={product.name}
+              mbti={product.mbti}
               age={product.age}
               comments={1}
               hearts={product._count.favs}

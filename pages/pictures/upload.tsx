@@ -13,6 +13,7 @@ interface UploadProductForm {
   name: string;
   age: number;
   description: string;
+  mbti: string;
 }
 
 interface UploadProductMutation {
@@ -61,6 +62,13 @@ const Upload: NextPage = () => {
           required
           label="Title"
           name="name"
+          type="text"
+        />
+        <Input
+          register={register("mbti", { required: true, pattern: /^[A-Z]{4}$/ })}
+          required
+          label="MBTI"
+          name="mbti"
           type="text"
         />
         <Input

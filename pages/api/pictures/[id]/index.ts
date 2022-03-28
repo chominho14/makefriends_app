@@ -47,6 +47,24 @@ async function handler(
       },
     },
   });
+
+  const sameMbti = product?.mbti.split(" ").map((word) => ({
+    mbti: {
+      contains: word,
+    },
+  }));
+
+  const relatedMbit = await client.product.findMany({
+    where: {
+      OR: sameMbti,
+      AND: {
+        id: {
+          not: product?.id,
+        },
+      },
+    },
+  });
+
   const isLiked = Boolean(
     await client.fav.findFirst({
       where: {
@@ -64,6 +82,7 @@ async function handler(
     product,
     isLiked,
     relatedAges,
+    relatedMbit,
   });
 }
 

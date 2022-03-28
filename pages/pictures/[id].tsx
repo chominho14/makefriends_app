@@ -18,6 +18,7 @@ interface ItemDetailResponse {
   product: ProductWithUser;
   relatedAges: Product[];
   isLiked: boolean;
+  relatedMbti: Product[];
 }
 
 const PictureDetail: NextPage = () => {
@@ -34,6 +35,7 @@ const PictureDetail: NextPage = () => {
     // mutate("api/users/me", (prev: any) => ({ ok: !prev.ok }), false);
     toggleFav({});
   };
+  console.log(data?.relatedAges);
   return (
     <Layout canGoBack>
       <div className="px-4  py-4">
@@ -67,8 +69,8 @@ const PictureDetail: NextPage = () => {
             {isLoading ? (
               "Loading..."
             ) : (
-              <span className="mt-3 block text-3xl text-gray-900">
-                {data?.product.age}세
+              <span className="mt-3 block text-2xl text-gray-900">
+                {data?.product?.age}세, {data?.product?.mbti}
               </span>
             )}
             {isLoading ? (
@@ -122,14 +124,18 @@ const PictureDetail: NextPage = () => {
           </div>
         </div>
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">Another People</h2>
+          {data?.relatedAges.length == 0 ? (
+            ""
+          ) : (
+            <h2 className="text-2xl font-bold text-gray-900">Another People</h2>
+          )}
           <div className="  mt-6 grid grid-cols-2 gap-4">
             {data?.relatedAges.map((product) => (
               <Link key={product.id} href={`/pictures/${product?.id}`}>
                 <a>
                   <div>
                     <div className="mb-4 h-56 w-full bg-slate-300" />
-                    <h3 className="-mb-1 text-gray-700">{product.title}</h3>
+                    <h3 className="-mb-1 text-gray-700">{product?.name}</h3>
                     <span className="text-xs font-medium text-gray-900">
                       {product.age}세
                     </span>
