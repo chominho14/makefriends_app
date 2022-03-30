@@ -145,6 +145,28 @@ const PictureDetail: NextPage = () => {
             ))}
           </div>
         </div>
+        <div>
+          {data?.relatedMbti?.length == 0 ? (
+            ""
+          ) : (
+            <h2 className="text-2xl font-bold text-gray-900">Same MBTI</h2>
+          )}
+          <div className="  mt-6 grid grid-cols-2 gap-4">
+            {data?.relatedMbti?.map((product) => (
+              <Link key={product.id} href={`/pictures/${product?.id}`}>
+                <a>
+                  <div>
+                    <div className="mb-4 h-56 w-full bg-slate-300" />
+                    <h3 className="-mb-1 text-gray-700">{product?.name}</h3>
+                    <span className="text-xs font-medium text-gray-900">
+                      {product.age}세
+                    </span>
+                  </div>
+                </a>
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
     </Layout>
   );

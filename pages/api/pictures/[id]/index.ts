@@ -54,7 +54,7 @@ async function handler(
     },
   }));
 
-  const relatedMbit = await client.product.findMany({
+  const relatedMbti = await client.product.findMany({
     where: {
       OR: sameMbti,
       AND: {
@@ -82,7 +82,7 @@ async function handler(
     product,
     isLiked,
     relatedAges,
-    relatedMbit,
+    relatedMbti,
   });
 }
 
