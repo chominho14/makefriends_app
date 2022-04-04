@@ -4,6 +4,7 @@ interface PictureProps {
   title: string;
   id: number;
   age: number;
+  mbti: string;
   comments: number;
   hearts: number;
 }
@@ -11,6 +12,7 @@ interface PictureProps {
 export default function Picture({
   title,
   age,
+  mbti,
   comments,
   hearts,
   id,
@@ -22,8 +24,8 @@ export default function Picture({
           <div className="h-20 w-20 rounded-md bg-gray-400" />
           <div className="flex flex-col pt-2">
             <h3 className="text-sm font-medium text-gray-900">{title}</h3>
-            <span className="mt-1 text-sm font-medium text-gray-900">
-              {age}세
+            <span className="mt-1 text-xs font-medium text-gray-900">
+              {age}세, {mbti}
             </span>
           </div>
         </div>
