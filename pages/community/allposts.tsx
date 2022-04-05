@@ -4,9 +4,8 @@ import Link from "next/link";
 import FloatingButton from "@components/floating-button";
 import useSWR from "swr";
 import { Post, User } from "@prisma/client";
-import useCoords from "@libs/client/useCoords";
-import { useEffect, useState } from "react";
-import CommunityAllPosts from "./allposts";
+import { useState } from "react";
+import Community from ".";
 
 interface PostWithUser extends Post {
   user: User;
@@ -21,19 +20,10 @@ interface PostsResponse {
   posts: PostWithUser[];
 }
 
-const Community: NextPage = () => {
-  const { latitude, longitude } = useCoords();
-  const { data } = useSWR<PostsResponse>(
-    `/api/posts?latitude=${latitude}&longitude=${longitude}`
-  );
-
+const CommunityAllPosts: NextPage = () => {
+  const { data } = useSWR<PostsResponse>(`/api/posts/allposts`);
   return (
     <Layout hasTabBar title="동네생활">
-      <Link href={`/community/allposts`}>
-        <a className="fixed top-14 right-10 ml-4 flex items-center rounded-sm bg-pink-50 px-2.5 py-0.5 text-sm font-medium text-gray-700">
-          {latitude == null ? null : "모든 글 보기"}
-        </a>
-      </Link>
       <div className="space-y-4 divide-y-[2px]">
         {data?.posts?.map((post) => (
           <Link key={post.id} href={`/community/${post.id}`}>
@@ -109,4 +99,4 @@ const Community: NextPage = () => {
   );
 };
 
-export default Community;
+export default CommunityAllPosts;

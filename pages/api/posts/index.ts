@@ -33,39 +33,64 @@ async function handler(
     const {
       query: { latitude, longitude },
     } = req;
-    const parsedLatitude = parseFloat(latitude.toString());
-    const parsedLongitude = parseFloat(longitude.toString());
-    const posts = await client.post.findMany({
-      include: {
-        user: {
-          select: {
-            id: true,
-            name: true,
-            avatar: true,
+
+    if (latitude == "null") {
+      const posts = await client.post.findMany({
+        include: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+              avatar: true,
+            },
+          },
+          _count: {
+            select: {
+              wondering: true,
+              answers: true,
+            },
           },
         },
-        _count: {
-          select: {
-            wondering: true,
-            answers: true,
+      });
+      res.json({
+        ok: true,
+        posts,
+      });
+    } else {
+      const parsedLatitude = parseFloat(latitude.toString());
+      const parsedLongitude = parseFloat(longitude.toString());
+      const posts = await client.post.findMany({
+        include: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+              avatar: true,
+            },
+          },
+          _count: {
+            select: {
+              wondering: true,
+              answers: true,
+            },
           },
         },
-      },
-      where: {
-        latitude: {
-          gte: parsedLatitude - 0.01,
-          lte: parsedLongitude + 0.01,
+        where: {
+          latitude: {
+            gte: parsedLatitude - 0.01,
+            lte: parsedLongitude + 0.01,
+          },
+          longitude: {
+            gte: parsedLatitude - 0.01,
+            lte: parsedLongitude + 0.01,
+          },
         },
-        longitude: {
-          gte: parsedLatitude - 0.01,
-          lte: parsedLongitude + 0.01,
-        },
-      },
-    });
-    res.json({
-      ok: true,
-      posts,
-    });
+      });
+      res.json({
+        ok: true,
+        posts,
+      });
+    }
   }
 }
 

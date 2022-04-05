@@ -77,7 +77,8 @@ export default function Layout({
             <a
               className={cls(
                 "flex flex-col items-center space-y-2 ",
-                router.pathname === "/community"
+                router.pathname === "/community" ||
+                  router.pathname === "/community/allposts"
                   ? "text-pink-500"
                   : "transition-colors hover:text-gray-500"
               )}
