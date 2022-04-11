@@ -30,17 +30,20 @@ const Home: NextPage = () => {
         "Loading..."
       ) : (
         <div className="flex flex-col space-y-5 px-4">
-          {data?.products?.map((product) => (
-            <Picture
-              id={product.id}
-              key={product.id}
-              title={product.name}
-              mbti={product.mbti}
-              age={product.age}
-              comments={1}
-              hearts={product._count.favs}
-            />
-          ))}
+          {data?.products
+            ?.slice(0)
+            .reverse()
+            .map((product) => (
+              <Picture
+                id={product.id}
+                key={product.id}
+                title={product.name}
+                mbti={product.mbti}
+                age={product.age}
+                comments={1}
+                hearts={product._count.favs}
+              />
+            ))}
           <FloatingButton href="/pictures/upload">
             <svg
               className="h-6 w-6"
