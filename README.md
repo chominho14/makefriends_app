@@ -2,23 +2,19 @@
 
 ---
 
-## NextJS 를 이용하여 웹 앱 만들어 보기.
+## 계획서
+
+- https://gleaming-garlic-1d6.notion.site/5fc6abc3e5ca4702a4c21eb612daf4ea
 
 ---
 
-### NextJS, React18, Tailwind, Prisma
+###
 
 ---
 
 ## 사용 패키지
 
-### React 18, SWR, Prisma, MDX, NextJS, Typescript, TailwindCSS, PlanetScale, Twilio, ...
-
----
-
-## 공부해야하는 이론
-
-### SSR (Server-Side Rendering), Serverless Architecture, Data Fetching and Caching, ...
+- https://gleaming-garlic-1d6.notion.site/fcaba2c66626494f8f0b5905f6c6552d
 
 ---
 
