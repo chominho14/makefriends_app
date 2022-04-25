@@ -1,26 +1,48 @@
 import type { NextPage } from "next";
 import Layout from "@components/layout";
 import Link from "next/link";
+import useUser from "@libs/client/useUser";
+import useSWR from "swr";
+import { Post, Product, User } from "@prisma/client";
+import Picture from "@components/picture";
+import ProfilePicture from "@components/profilepicture";
+
+interface ProfileWithProductsAndPosts {
+  user: User;
+  products: Product[];
+  posts: Post[];
+}
+
+interface ProfileResponse {
+  ok: boolean;
+  profile: ProfileWithProductsAndPosts;
+}
 
 const Profile: NextPage = () => {
+  const { user, isLoading } = useUser();
+  const { data } = useSWR<ProfileResponse>("/api/users/me");
   return (
     <Layout hasTabBar title="나의 프로필">
       <div className="px-4">
-        <div className="flex items-center mt-4 space-x-3">
-          <div className="w-16 h-16 bg-slate-500 rounded-full" />
-          <div className="flex flex-col">
-            <span className="font-medium text-gray-900">Steve Jebs</span>
-            <Link href="/profile/edit">
-              <a className="text-sm text-gray-700">Edit profile &rarr;</a>
-            </Link>
-          </div>
+        <div className="mt-4 flex items-center space-x-3">
+          <div className="h-16 w-16 rounded-full bg-slate-500" />
+          {isLoading ? (
+            "Loading..."
+          ) : (
+            <div className="flex flex-col">
+              <span className="font-medium text-gray-900">{user?.name}</span>
+              <Link href="/profile/edit">
+                <a className="text-sm text-gray-700">Edit profile &rarr;</a>
+              </Link>
+            </div>
+          )}
         </div>
         <div className="mt-10 flex justify-around">
           <Link href="/profile/loved">
-            <a className="w-full flex flex-col items-center">
-              <div className="w-full h-14 text-white bg-pink-400 rounded-2xl flex items-center justify-center">
+            <a className="flex w-full flex-col items-center">
+              <div className="flex h-14 w-full items-center justify-center rounded-2xl bg-pink-400 text-white">
                 <svg
-                  className="w-6 h-6"
+                  className="h-6 w-6"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -34,75 +56,67 @@ const Profile: NextPage = () => {
                   ></path>
                 </svg>
               </div>
-              <span className="text-sm mt-2 font-medium text-gray-700">
+              <span className="mt-2 text-sm font-medium text-gray-700">
                 관심목록
               </span>
             </a>
           </Link>
         </div>
         <div className="mt-12">
-          <div className="flex space-x-4 items-center">
-            <div className="w-12 h-12 rounded-full bg-slate-500" />
+          <div className="flex flex-col space-y-5 px-4 py-5">
+            {data?.profile.products.length == 0 ? (
+              ""
+            ) : (
+              <h4 className="text-xl font-bold text-gray-900">
+                Uploaded Pictures
+              </h4>
+            )}
             <div>
-              <h4 className="text-sm font-bold text-gray-800">chominho</h4>
-              <div className="flex items-center">
-                <svg
-                  className="text-yellow-400 h-5 w-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-                <svg
-                  className="text-yellow-400 h-5 w-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-                <svg
-                  className="text-yellow-400 h-5 w-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-                <svg
-                  className="text-yellow-400 h-5 w-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-                <svg
-                  className="text-gray-400 h-5 w-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-              </div>
+              {data?.profile.products
+                ?.slice(0)
+                .reverse()
+                .map((product) => (
+                  <ProfilePicture
+                    id={product.id}
+                    key={product.id}
+                    title={product.name}
+                    mbti={product.mbti}
+                    age={product.age}
+                    description={product.description}
+                  />
+                ))}
             </div>
           </div>
-          <div className="mt-4 text-gray-600 text-sm">
-            <p>
-              Normally, both your asses would be dead as fucking fried chicken,
-              but you happen to pull this shit while I&apos;m in a transitional
-              period so I don&apos;t wanna kill you, I wanna help you. But I
-              can&apos;t give you this case, it don&apos;t belong to me.
-              Besides, I&apos;ve already been through too much shit this morning
-              over this case to hand it over to your dumb ass.
-            </p>
+          <div className="flex flex-col space-y-5 px-4 py-5">
+            {data?.profile.posts.length == 0 ? (
+              ""
+            ) : (
+              <h4 className="text-xl font-bold text-gray-900">
+                Uploaded Posts
+              </h4>
+            )}
+            <div className="space-y-4 divide-y-[2px]">
+              {data?.profile.posts
+                ?.slice(0)
+                .reverse()
+                .map((post) => (
+                  <Link key={post.id} href={`/community/${post.id}`}>
+                    <a className="flex cursor-pointer flex-col items-start pt-4">
+                      <div className="mt-2 px-4 text-gray-700">
+                        <span className="font-medium text-pink-500">Q.</span>
+                        {post.question.length >= 20
+                          ? post.question.substring(0, 20)
+                          : post.question}
+                      </div>
+                      <div className="mt-5 flex w-full items-center justify-between px-4 text-xs font-medium text-gray-500">
+                        <span> </span>
+                        <span>{post.createdAt}</span>
+                      </div>
+                      <div className="mt-3 flex w-full space-x-5 border-t px-4 py-2.5   text-gray-700"></div>
+                    </a>
+                  </Link>
+                ))}
+            </div>
           </div>
         </div>
       </div>

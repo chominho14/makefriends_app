@@ -48,7 +48,7 @@ async function handler(
     //   text: `Your token is ${payload}`,
     //   html: `<strong>Your token is ${payload}</strong>`,
     // });
-    // console.log(email);
+    console.log(email);
   }
   return res.json({
     ok: true,
