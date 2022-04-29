@@ -8,7 +8,7 @@ import useCoords from "@libs/client/useCoords";
 import { useEffect, useState } from "react";
 import CommunityAllPosts from "./allposts";
 
-interface PostWithUser extends Post {
+export interface PostWithUser extends Post {
   user: User;
   _count: {
     wondering: number;

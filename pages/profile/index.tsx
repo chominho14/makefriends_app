@@ -6,11 +6,27 @@ import useSWR from "swr";
 import { Post, Product, User } from "@prisma/client";
 import Picture from "@components/picture";
 import ProfilePicture from "@components/profilepicture";
+import { ProductWithCount } from "pages";
+import { PostWithUser } from "pages/community";
+
+interface ProductWithCounts extends Product {
+  _count: {
+    favs: number;
+  };
+}
+
+interface PostWithUsers extends Post {
+  user: User;
+  _count: {
+    wondering: number;
+    answers: number;
+  };
+}
 
 interface ProfileWithProductsAndPosts {
   user: User;
-  products: Product[];
-  posts: Post[];
+  products: ProductWithCounts[];
+  posts: PostWithUsers[];
 }
 
 interface ProfileResponse {
@@ -64,15 +80,18 @@ const Profile: NextPage = () => {
         </div>
         <div className="mt-12">
           <div className="flex flex-col space-y-5 px-4 py-5">
-            {data?.profile.products.length == 0 ? (
+            {data?.profile?.products.length == 0 ? (
               ""
             ) : (
-              <h4 className="text-xl font-bold text-gray-900">
-                Uploaded Pictures
-              </h4>
+              <>
+                <hr />
+                <h4 className="text-xl font-bold text-gray-900">
+                  Uploaded Pictures
+                </h4>
+              </>
             )}
             <div>
-              {data?.profile.products
+              {data?.profile?.products
                 ?.slice(0)
                 .reverse()
                 .map((product) => (
@@ -83,20 +102,24 @@ const Profile: NextPage = () => {
                     mbti={product.mbti}
                     age={product.age}
                     description={product.description}
+                    hearts={product._count.favs}
                   />
                 ))}
             </div>
           </div>
           <div className="flex flex-col space-y-5 px-4 py-5">
-            {data?.profile.posts.length == 0 ? (
+            {data?.profile?.posts.length == 0 ? (
               ""
             ) : (
-              <h4 className="text-xl font-bold text-gray-900">
-                Uploaded Posts
-              </h4>
+              <>
+                <hr />
+                <h4 className="text-xl font-bold text-gray-900">
+                  Uploaded Posts
+                </h4>
+              </>
             )}
             <div className="space-y-4 divide-y-[2px]">
-              {data?.profile.posts
+              {data?.profile?.posts
                 ?.slice(0)
                 .reverse()
                 .map((post) => (

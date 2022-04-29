@@ -16,8 +16,25 @@ async function handler(
       id: req.session.user?.id,
     },
     include: {
-      products: true,
-      posts: true,
+      products: {
+        include: {
+          _count: {
+            select: {
+              favs: true,
+            },
+          },
+        },
+      },
+      posts: {
+        include: {
+          _count: {
+            select: {
+              wondering: true,
+              answers: true,
+            },
+          },
+        },
+      },
     },
   });
   res.json({
