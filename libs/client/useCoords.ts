@@ -15,6 +15,7 @@ export default function useCoords() {
   }: GeolocationPosition) => {
     setCoords({ latitude, longitude });
   };
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(onSuccess);
   }, []);
