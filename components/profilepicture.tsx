@@ -19,7 +19,7 @@ export default function Picture({
 }: PictureProps) {
   return (
     <Link href={`/pictures/${id}`}>
-      <a className="flex cursor-pointer justify-between px-4 pt-5">
+      <a className="flex w-full cursor-pointer justify-between px-4 pt-5">
         <div className="flex space-x-4">
           <div className="h-20 w-20 rounded-md bg-gray-400" />
           <div className="flex flex-col pt-2">
@@ -34,6 +34,7 @@ export default function Picture({
             </span>
           </div>
         </div>
+
         <div className="flex items-end justify-end space-x-2">
           <div className="ml-20 flex items-center space-x-0.5 text-sm  text-gray-600">
             <svg
