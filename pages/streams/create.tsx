@@ -5,7 +5,7 @@ import Layout from "@components/layout";
 import TextArea from "@components/textarea";
 import useMutation from "@libs/client/useMutation";
 import { useForm } from "react-hook-form";
-import { Stream } from "stream";
+import { Stream } from "@prisma/client";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
