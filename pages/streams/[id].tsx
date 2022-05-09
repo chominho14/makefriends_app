@@ -6,10 +6,24 @@ import { useRouter } from "next/router";
 import { Stream } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import useMutation from "@libs/client/useMutation";
+import useUser from "@libs/client/useUser";
+import { useEffect } from "react";
+
+interface StreamMessage {
+  message: string;
+  id: number;
+  user: {
+    avatar?: string;
+    id: number;
+  };
+}
+interface StreamWithMessages extends Stream {
+  messages: StreamMessage[];
+}
 
 interface StreamResponse {
   ok: true;
-  stream: Stream;
+  stream: StreamWithMessages;
 }
 
 interface MessageForm {
@@ -17,19 +31,26 @@ interface MessageForm {
 }
 
 const Stream: NextPage = () => {
+  const { user } = useUser();
   const router = useRouter();
   const { register, handleSubmit, reset } = useForm<MessageForm>();
-  const { data } = useSWR<StreamResponse>(
+  const { data, mutate } = useSWR<StreamResponse>(
     router.query.id ? `/api/streams/${router.query.id}` : null
   );
   const [sendMessage, { loading, data: sendMessageData }] = useMutation(
     `/api/streams/${router.query.id}/messages`
   );
+
   const onValid = (form: MessageForm) => {
     if (loading) return;
     reset();
     sendMessage(form);
   };
+  useEffect(() => {
+    if (sendMessageData && sendMessageData.ok) {
+      mutate();
+    }
+  }, [sendMessageData, mutate]);
   return (
     <Layout canGoBack>
       <div className="space-y-4 py-10  px-4">
@@ -46,9 +67,13 @@ const Stream: NextPage = () => {
         <div>
           <h2 className="text-2xl font-bold text-gray-900">Live Chat</h2>
           <div className="h-[50vh] space-y-4 overflow-y-scroll py-10  px-4 pb-16">
-            <Message message="Hi how much are you selling them for?" />
-            <Message message="I want ￦20,000" reversed />
-            <Message message="미쳤어" />
+            {data?.stream?.messages?.map((message) => (
+              <Message
+                key={message.id}
+                message={message.message}
+                reversed={message.user.id === user?.id}
+              />
+            ))}
           </div>
           <div className="fixed inset-x-0 bottom-0  bg-white py-2">
             <form
