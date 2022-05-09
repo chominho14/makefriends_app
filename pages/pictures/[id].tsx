@@ -35,7 +35,6 @@ const PictureDetail: NextPage = () => {
     // mutate("api/users/me", (prev: any) => ({ ok: !prev.ok }), false);
     toggleFav({});
   };
-  console.log(data?.relatedAges);
   return (
     <Layout canGoBack>
       <div className="px-4  py-4">
