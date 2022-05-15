@@ -45,7 +45,7 @@ const CommunityPostDetail: NextPage = () => {
     router.query.id ? `/api/posts/${router.query.id}` : null
   );
   const [wonder, { loading }] = useMutation(
-    `/api/posts/${router.query.id}/wonder`
+    `/api/posts/${router.query.id}/wondering`
   );
   const [sendAnswer, { data: answerData, loading: answerLoading }] =
     useMutation<AnswerResponse>(`/api/posts/${router.query.id}/answers`);

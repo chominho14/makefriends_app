@@ -46,9 +46,16 @@ const EditProfile: NextPage = () => {
     }
     if (avatar && avatar.length > 0) {
       // cloudflare 에 url 요청
-      const cloudflareRequest = await (await fetch(`/api/files`)).json();
+      const { id, uploadURL } = await (await fetch(`/api/files`)).json();
 
       // url을 받으면 파일을 업로드
+      const form = new FormData();
+      form.append("file", avatar[0], user?.id + "");
+      await fetch(uploadURL, {
+        method: "POST",
+        body: form,
+      });
+
       return;
       editProfile({
         email,
