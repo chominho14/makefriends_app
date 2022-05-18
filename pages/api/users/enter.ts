@@ -49,12 +49,12 @@ async function handler(
   });
   console.log(token);
   if (phone) {
-    // const message = await twilioClient.messages.create({
-    //   messagingServiceSid: process.env.TWILIO_MSID,
-    //   to: process.env.PHONE_NUMBER!,
-    //   body: `Your login token is ${payload}.`,
-    // });
-    // console.log(message);
+    const message = await twilioClient.messages.create({
+      messagingServiceSid: process.env.TWILIO_MSID,
+      to: process.env.PHONE_NUMBER!,
+      body: `Your login token is ${payload}.`,
+    });
+    console.log(message);
   } else if (email) {
     // twilio 보내는 로직
     // const email = await mail.send({
