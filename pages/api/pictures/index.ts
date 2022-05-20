@@ -34,7 +34,7 @@ async function handler(
         mbti: mbti,
         age: +age,
         description,
-        image: "",
+        image: photoId,
         user: {
           connect: {
             id: user?.id,
