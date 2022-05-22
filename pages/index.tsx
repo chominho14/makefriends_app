@@ -41,6 +41,7 @@ const Home: NextPage = () => {
                 mbti={product.mbti}
                 age={product.age}
                 hearts={product._count.favs}
+                image={product.image}
               />
             ))}
           <FloatingButton href="/pictures/upload">

@@ -27,6 +27,7 @@ export default function PictureList({ kind }: PictureListProps) {
           age={record.product.age}
           mbti={record.product.mbti}
           hearts={record.product._count.favs}
+          image={record.product.image}
         />
       ))}
     </>

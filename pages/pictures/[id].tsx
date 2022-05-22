@@ -149,8 +149,13 @@ const PictureDetail: NextPage = () => {
               <Link key={product.id} href={`/pictures/${product?.id}`}>
                 <a>
                   <div>
-                    <div className="mb-4 h-56 w-full bg-slate-300" />
-                    <h3 className="-mb-1 text-gray-700">{product?.name}</h3>
+                    <Image
+                      width={230}
+                      height={230}
+                      src={`https://imagedelivery.net/gW7iMYc8PRF7ooz9ysBNKw/${product.image}/similarpost`}
+                      className="mb-4 h-56 w-full bg-slate-300"
+                    />
+                    <h3 className="-mb-1 text-gray-700">{product.name}</h3>
                     <span className="text-xs font-medium text-gray-900">
                       {product.age}세
                     </span>
@@ -171,7 +176,12 @@ const PictureDetail: NextPage = () => {
               <Link key={product.id} href={`/pictures/${product?.id}`}>
                 <a>
                   <div>
-                    <div className="mb-4 h-56 w-full bg-slate-300" />
+                    <Image
+                      width={230}
+                      height={230}
+                      src={`https://imagedelivery.net/gW7iMYc8PRF7ooz9ysBNKw/${product.image}/similarpost`}
+                      className="mb-4 h-56 w-full bg-slate-300"
+                    />
                     <h3 className="-mb-1 text-gray-700">{product?.name}</h3>
                     <span className="text-xs font-medium text-gray-900">
                       {product.age}세
