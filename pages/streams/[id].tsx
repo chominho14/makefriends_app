@@ -74,7 +74,14 @@ const Stream: NextPage = () => {
   return (
     <Layout canGoBack>
       <div className="space-y-4 py-10  px-4">
-        <div className="aspect-video w-full rounded-md bg-slate-300 shadow-sm" />
+        {data?.stream.cloudflareId ? (
+          <iframe
+            className="aspect-video w-full  rounded-md shadow-sm"
+            src={`https://iframe.videodelivery.net/${data?.stream.cloudflareId}`}
+            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+            allowFullScreen={true}
+          ></iframe>
+        ) : null}
         <div className="mt-5">
           <h1 className="text-3xl font-bold text-gray-900">
             {data?.stream?.name}
@@ -83,7 +90,7 @@ const Stream: NextPage = () => {
             {data?.stream?.mbti}
           </span>
           <p className=" my-6 text-gray-700">{data?.stream?.description}</p>
-          <div className="flex flex-col space-y-3 overflow-scroll rounded-md bg-orange-400 p-5">
+          <div className="flex flex-col space-y-3 overflow-scroll rounded-md bg-pink-400 p-5">
             <span>Stream Keys (secret)</span>
             <span className="text-white">
               <span className="fond-medium text-gray-800">URL:</span>
