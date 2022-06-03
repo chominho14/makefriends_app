@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 interface PictureProps {
@@ -6,6 +7,7 @@ interface PictureProps {
   age: number;
   mbti: string;
   description: string;
+  image: string;
   hearts: number;
 }
 
@@ -14,6 +16,7 @@ export default function Picture({
   age,
   mbti,
   id,
+  image,
   description,
   hearts,
 }: PictureProps) {
@@ -21,7 +24,12 @@ export default function Picture({
     <Link href={`/pictures/${id}`}>
       <a className="flex w-full cursor-pointer justify-between px-4 pt-5">
         <div className="flex space-x-4">
-          <div className="h-20 w-20 rounded-md bg-gray-400" />
+          <Image
+            width={80}
+            height={80}
+            src={`https://imagedelivery.net/gW7iMYc8PRF7ooz9ysBNKw/${image}/list`}
+            className="h-20 w-20 rounded-md bg-gray-400"
+          />
           <div className="flex flex-col pt-2">
             <h3 className="text-sm font-medium text-gray-900">{title}</h3>
             <span className="mt-1 text-xs font-medium text-gray-900">

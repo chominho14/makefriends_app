@@ -107,6 +107,7 @@ const Profile: NextPage = () => {
                     key={product.id}
                     title={product.name}
                     mbti={product.mbti}
+                    image={product.image}
                     age={product.age}
                     description={product.description}
                     hearts={product._count.favs}
