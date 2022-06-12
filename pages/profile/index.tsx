@@ -8,6 +8,7 @@ import Picture from "@components/picture";
 import ProfilePicture from "@components/profilepicture";
 import { ProductWithCount } from "pages";
 import { PostWithUser } from "pages/community";
+import Image from "next/image";
 
 interface ProductWithCounts extends Product {
   _count: {
@@ -42,8 +43,10 @@ const Profile: NextPage = () => {
       <div className="px-4">
         <div className="mt-4 flex items-center space-x-3">
           {user?.avatar ? (
-            <img
-              src={`https://imagedelivery.net/gW7iMYc8PRF7ooz9ysBNKw/${user?.id}/avatar`}
+            <Image
+              width={48}
+              height={48}
+              src={`https://imagedelivery.net/gW7iMYc8PRF7ooz9ysBNKw/${data?.profile?.avatar}/avatar`}
               className="h-16 w-16 rounded-full bg-slate-500"
             />
           ) : (

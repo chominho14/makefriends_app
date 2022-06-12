@@ -9,6 +9,7 @@ import useMutation from "@libs/client/useMutation";
 import { cls } from "@libs/client/utils";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
+import Image from "next/image";
 
 interface AnswerWithUser extends Answer {
   user: User;
@@ -47,6 +48,7 @@ const CommunityPostDetail: NextPage = () => {
   const [wonder, { loading }] = useMutation(
     `/api/posts/${router.query.id}/wondering`
   );
+  console.log(router.query.id);
   const [sendAnswer, { data: answerData, loading: answerLoading }] =
     useMutation<AnswerResponse>(`/api/posts/${router.query.id}/answers`);
   const onWonderClick = () => {
@@ -88,7 +90,16 @@ const CommunityPostDetail: NextPage = () => {
           동네질문
         </span>
         <div className="mb-3 flex cursor-pointer items-center space-x-3  border-b px-4 pb-3">
-          <div className="h-10 w-10 rounded-full bg-slate-300" />
+          {data?.post?.user?.avatar ? (
+            <Image
+              width={48}
+              height={48}
+              src={`https://imagedelivery.net/gW7iMYc8PRF7ooz9ysBNKw/${data?.post.user.avatar}/avatar`}
+              className="h-16 w-16 rounded-full bg-slate-500"
+            />
+          ) : (
+            <div className="h-16 w-16 rounded-full bg-slate-500" />
+          )}
           <div>
             <p className="text-sm font-medium text-gray-700">
               {data?.post?.user?.name}
@@ -151,7 +162,16 @@ const CommunityPostDetail: NextPage = () => {
         <div className="my-5 space-y-5 px-4">
           {data?.post?.answers?.map((answer) => (
             <div key={answer.id} className="flex items-start space-x-3">
-              <div className="h-8 w-8 rounded-full bg-slate-200" />
+              {answer.user.avatar ? (
+                <Image
+                  width={32}
+                  height={32}
+                  src={`https://imagedelivery.net/gW7iMYc8PRF7ooz9ysBNKw/${data?.post.user.avatar}/avatar`}
+                  className="h-8 w-8 rounded-full bg-slate-200"
+                />
+              ) : (
+                <div className="h-8 w-8 rounded-full bg-slate-200" />
+              )}
               <div>
                 <span className="block text-sm font-medium text-gray-700">
                   {answer.user.name}
