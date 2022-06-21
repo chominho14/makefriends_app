@@ -5,6 +5,7 @@ import useUser from "@libs/client/useUser";
 
 function MyApp({ Component, pageProps }: AppProps) {
   useUser();
+  console.log("APP is running");
   return (
     <SWRConfig
       value={{
