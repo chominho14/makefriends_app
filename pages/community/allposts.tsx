@@ -23,7 +23,7 @@ interface PostsResponse {
 const CommunityAllPosts: NextPage = () => {
   const { data } = useSWR<PostsResponse>(`/api/posts/allposts`);
   return (
-    <Layout hasTabBar title="동네생활">
+    <Layout hasTabBar title="동네생활" seoTitle="Community All">
       <div className="space-y-4 divide-y-[2px]">
         {data?.posts
           ?.slice(0)

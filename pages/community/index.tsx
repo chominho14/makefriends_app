@@ -30,7 +30,7 @@ const Community: NextPage = () => {
   );
 
   return (
-    <Layout hasTabBar title="동네생활">
+    <Layout hasTabBar title="동네생활" seoTitle="Community">
       <Link href={`/community/allposts`}>
         <a className="fixed top-14 right-10 ml-4 flex items-center rounded-sm bg-pink-50 px-2.5 py-0.5 text-sm font-medium text-gray-700">
           {latitude == null ? null : "모든 글 보기"}

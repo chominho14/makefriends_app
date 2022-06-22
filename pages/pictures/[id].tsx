@@ -37,7 +37,7 @@ const PictureDetail: NextPage = () => {
     toggleFav({});
   };
   return (
-    <Layout canGoBack>
+    <Layout canGoBack seoTitle="Post Detail">
       <div className="px-4  py-4">
         <div className="mb-8">
           <div className="relative pb-80">

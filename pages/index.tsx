@@ -22,7 +22,7 @@ const Home: NextPage = () => {
   const { user, isLoading } = useUser();
   const { data } = useSWR<ProductsResponse>("/api/pictures");
   return (
-    <Layout title="홈" hasTabBar>
+    <Layout title="홈" hasTabBar seoTitle="Home">
       <Head>
         <title>Home</title>
       </Head>

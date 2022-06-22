@@ -39,7 +39,7 @@ const Profile: NextPage = () => {
   const { user, isLoading } = useUser();
   const { data } = useSWR<ProfileResponse>("/api/users/me");
   return (
-    <Layout hasTabBar title="나의 프로필">
+    <Layout hasTabBar title="나의 프로필" seoTitle="Profile">
       <div className="px-4">
         <div className="mt-4 flex items-center space-x-3">
           {user?.avatar ? (

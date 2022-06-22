@@ -6,7 +6,7 @@ import PictureList from "@components/picture-list";
 
 const Loved: NextPage = () => {
   return (
-    <Layout title="관심목록" canGoBack>
+    <Layout title="관심목록" canGoBack seoTitle="Loved Posts">
       <div className="flex flex-col space-y-5 divide-y  pb-10">
         <PictureList kind="favs" />
       </div>
