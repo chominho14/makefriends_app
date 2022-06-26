@@ -2,9 +2,9 @@
 
 ---
 
-## 계획서
+## 완료 보고서
 
-- https://gleaming-garlic-1d6.notion.site/5fc6abc3e5ca4702a4c21eb612daf4ea
+- https://gleaming-garlic-1d6.notion.site/d34972e2084341f8a2944f561e88ffd8
 
 ---
 
