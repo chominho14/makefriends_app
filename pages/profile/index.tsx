@@ -1,14 +1,13 @@
-import type { NextPage } from "next";
+import type { NextPage, NextPageContext } from "next";
 import Layout from "@components/layout";
 import Link from "next/link";
 import useUser from "@libs/client/useUser";
-import useSWR from "swr";
+import useSWR, { SWRConfig } from "swr";
 import { Post, Product, User } from "@prisma/client";
-import Picture from "@components/picture";
 import ProfilePicture from "@components/profilepicture";
-import { ProductWithCount } from "pages";
-import { PostWithUser } from "pages/community";
 import Image from "next/image";
+import { withSsrSession } from "@libs/server/withSession";
+import client from "@libs/server/client";
 
 interface ProductWithCounts extends Product {
   _count: {
@@ -158,4 +157,34 @@ const Profile: NextPage = () => {
   );
 };
 
-export default Profile;
+const Page: NextPage<{ profile: User }> = ({ profile }) => {
+  return (
+    <SWRConfig
+      value={{
+        fallback: {
+          "/api/users/me": {
+            ok: true,
+            profile,
+          },
+        },
+      }}
+    >
+      <Profile />
+    </SWRConfig>
+  );
+};
+
+export const getServerSideProps = withSsrSession(async function ({
+  req,
+}: NextPageContext) {
+  const profile = await client?.user.findUnique({
+    where: { id: req?.session.user?.id },
+  });
+  return {
+    props: {
+      profile: JSON.parse(JSON.stringify(profile)),
+    },
+  };
+});
+
+export default Page;
