@@ -49,21 +49,21 @@ async function handler(
   });
   console.log(token);
   if (phone) {
-    const message = await twilioClient.messages.create({
-      messagingServiceSid: process.env.TWILIO_MSID,
-      to: process.env.PHONE_NUMBER!,
-      body: `Your login token is ${payload}.`,
-    });
-    console.log(message);
+    // const message = await twilioClient.messages.create({
+    //   messagingServiceSid: process.env.TWILIO_MSID,
+    //   to: process.env.PHONE_NUMBER!,
+    //   body: `Your login token is ${payload}.`,
+    // });
+    // console.log(message);
   } else if (email) {
     // twilio 보내는 로직
-    const email = await mail.send({
-      from: "chominho14@naver.com",
-      to: "chominho14@naver.com",
-      subject: "Your MakefriendsApp Verification Email",
-      text: `Your token is ${payload}`,
-      html: `<strong>Your token is ${payload}</strong>`,
-    });
+    // const email = await mail.send({
+    //   from: "chominho14@naver.com",
+    //   to: "chominho14@naver.com",
+    //   subject: "Your MakefriendsApp Verification Email",
+    //   text: `Your token is ${payload}`,
+    //   html: `<strong>Your token is ${payload}</strong>`,
+    // });
     // // nodemailer Email 보내기
     // const sendEmail = await transporter
     //   .sendMail({
@@ -85,6 +85,7 @@ async function handler(
   }
   return res.status(200).json({
     ok: true,
+    token,
   });
 }
 export default withHandler({ methods: ["POST"], handler, isPrivate: false });
